@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <title>CSS Variable</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      
+  </head>
+
+  <body>
+      
+      <h2>Update CSS Variables with <span class="h1">JS</span></h2>
+      
+      <div class="control">
+          <label for="spacing">Spacing:</label>
+          <input type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
+          
+          <label for="blur">Blur:</label>
+          <input type="range" name="blur" min="0" max="25" value="10" data-sizing="px">
+          
+          <label for="base">Base Color</label>
+          <input type="color" name="base" value="#ffc600">
+      </div>
+      
+      <img src="https://images.unsplash.com/photo-1472577938094-84871b72ccac?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=aa04d60046830aa6d6a62515d57737f0&auto=format&fit=crop&w=1052&q=80">
+      
+      <style>
+          :root {
+              --base: #ffc600;
+              --spacing: 10px;
+              --blur: 10px;
+          }
+          
+          img {
+              padding: var(--spacing);
+              background: var(--base);
+              filter: blur(var(--blur));
+          }
+          
+          body {
+              text-align: center;
+              background-color: #193594;
+              color: white;
+              font-family: 'helvetica neue', sans-serif;
+              font-weight: 100;
+              font-size: 50px;
+          }
+          .h1 {
+              color: var(--base);
+          }
+          .control {
+              margin-bottom: 50px;
+          }
+          input {
+              width: 100px;
+          }
+          
+      </style>
+      
+      <script>
+      const inputs = document.querySelectorAll('.control input');
+     
+      
+          function handleUpdate() {
+               const suffix = this.dataset.sizing || '';
+              document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+              //same code in old way
+              //document.documentElement.style.setProperty('--' + this.name, this.value + suffix);
+          }
+          
+          inputs.forEach(input => input.addEventListener('change', handleUpdate));
+          inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
+          
+      </script>
+
+</body>
+</html>
